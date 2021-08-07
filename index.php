@@ -12,7 +12,7 @@
     <html>
       <body>
         <center>
-          <svg id='floorplan' width='750' height='800'>
+          <svg id='floorplan' width='750' height='625'>
             <!-- Utility -->
             <rect x='100' y='100' width='120' height='180' style='fill:rgb(255,255,255);stroke:#111111;stroke-width:5;opacity:1' />
 
@@ -90,11 +90,67 @@
             Sorry, your browser does not support inline SVG.
             </svg>
 
-    <!-- javascript -->
+<?php
+// Grab the 'last triggered' data for initial page load.
+$hFile = fopen("hall.txt", "r");
+$loFile = fopen("lounge.txt", "r");
+$laFile = fopen("landing.txt", "r");
+$kFile = fopen("kitchen.txt", "r");
+echo "<br>";
+echo "<font face='arial' size=6>\n";
+
+echo "<div id='hallDate'>\n";
+echo "Hall: " . fread($hFile,filesize('hall.txt')) . "<br>\n";
+echo "</div>\n";
+fclose($hfile);
+
+echo "<div id='loungeDate'>\n";
+echo "Lounge: " . fread($loFile,filesize('lounge.txt')) . "<br>\n";
+echo "</div>\n";
+fclose($loFile);
+
+echo "<div id='kitchenDate'>\n";
+echo "Kitchen: " . fread($kFile,filesize('kitchen.txt')) . "<br>\n";
+echo "</div>\n";
+fclose($kFile);
+
+echo "<div id='landingDate'>\n";
+echo "Landing: " . fread($laFile,filesize('landing.txt')) . "<br>\n";
+echo "</div>\n";
+fclose($laFile);
+
+echo "</div></font>\n";
+?>
 
 <script>
 
+function capitalise(word) {
+    // takes an input word and capitalises it. hello becomes Hello, etc.
+    const lower = word.toLowerCase();
+    return word.charAt(0).toUpperCase() + lower.slice(1);
+}
+
+function lastUpdate ( room ) {
+    // lastUpdate - Picks up the 'last updated' info from the web server for a room
+    var data = 0;
+    var req = new XMLHttpRequest();
+    req.open( "GET" , "lastup.php?room=" + room, true);
+    req.send(null);
+
+    // Receive information back...
+    req.onreadystatechange = function () {
+        if (req.readyState == 4 && req.status == 200) {
+            data = req.responseText;
+            rm = capitalise(room);
+            document.getElementById(room + "Date").innerHTML = rm + ": " + data;
+        }
+    }
+}
+
+
 function checkPin ( room ) {
+    // checkPin - pass in a GPIO pin.
+    // Will update the house map by colouring it when triggered (pulled low).
     var data = 0;
     // Send the room number to gpio.php to poll for changes
     var request = new XMLHttpRequest();
@@ -129,11 +185,16 @@ function checkPin ( room ) {
     return 0;
 }
 
+
   // Set each sensor to be polled every quarter of a second.
   var int = self.setInterval(checkPin, 250, 15);
   var int = self.setInterval(checkPin, 250, 16);
   var int = self.setInterval(checkPin, 250, 1);
   var int = self.setInterval(checkPin, 250, 4);
+  var int = self.setInterval(lastUpdate, 2000,"landing"); // Update the 'last triggered' section.
+  var int = self.setInterval(lastUpdate, 2000,"hall");
+  var int = self.setInterval(lastUpdate, 2000,"kitchen");
+  var int = self.setInterval(lastUpdate, 2000,"lounge");
 </script>
 
 </body>
