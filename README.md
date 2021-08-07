@@ -13,3 +13,7 @@ Pre-steps:
 To use...
 Change the map as required in index.php
 Note that where there are sensors, those elements will need an id setting for them.
+
+Bonus feature: External access?
+1. Create a noIP.com account and free hostname.
+2. Set up your home broadband router to with a port forward on port 80 to theIP of the Pi. 
