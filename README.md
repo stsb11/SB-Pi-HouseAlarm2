@@ -14,7 +14,7 @@ To use...
 Change the map as required in index.php
 NOTE: For rooms that have sensors, those elements will need an id setting for them.
 Change the entries in gpio.php to reflect the house layout and WiringPi pins that are being used.
-Set up the 'monitor.py' file as a cron job on system boot.
+Set up the 'monitor.py' file as a cron job on system boot. (I used: @reboot    python3 /var/www/html/monitor.py >> /home/pi/cronlog.txt 2<&1)
 
 Bonus feature: External access?
 1. Create a noIP.com account and free hostname.
