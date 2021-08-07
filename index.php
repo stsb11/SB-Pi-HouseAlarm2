@@ -3,31 +3,11 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Althorpe Alarm</title>
+        <title>House Alarm</title>
     </head>
 
     <body style="background-color: white;">
     <!-- House picture -->
-    <?php
-        // Set the pin's mode to input and read them to establish the initial state of the sensors.
-        system("gpio mode 15 in");
-        exec ("gpio read 15", $h, $out );
-        $hall = $h[0];
-
-        system("gpio mode 16 in");
-        exec ("gpio read 16", $la, $out );
-        $landing = $la[0];
-
-        system("gpio mode 1 in");
-        exec ("gpio read 1", $k, $out );
-        $kitchen = $k[0];
-
-        system("gpio mode 4 in");
-        exec ("gpio read 4", $lo, $out );
-        $lounge = $lo[0];
-
-        // Now draw the floorplan for the house...
-    ?>
 
     <html>
       <body>
@@ -37,35 +17,16 @@
             <rect x='100' y='100' width='120' height='180' style='fill:rgb(255,255,255);stroke:#111111;stroke-width:5;opacity:1' />
 
             <!-- Kitchen -->
-            <?php
-            if ($kitchen == 0) {
-                echo "<rect id='kitchen' x='220' y='100' width='240' height='180' style='fill:rgb(0,255,0);stroke:#111111;stroke-width:5;opacity:1' />";
-            } else {
-                echo "<rect id='kitchen' x='220' y='100' width='240' height='180' style='fill:rgb(255,255,255);stroke:#111111;stroke-width:5;opacity:1' />";
-            }
-            ?>
+            <rect id='kitchen' x='220' y='100' width='240' height='180' style='fill:rgb(255,255,255);stroke:#111111;stroke-width:5;opacity:1' />
 
             <!-- Lounge -->
-            <?php
-
-            if ($lounge == 0) {
-                echo "<rect id='lounge' x='460' y='100' width='240' height='400' style='fill:rgb(0,255,0);stroke:#111111;stroke-width:5;opacity:1' />";
-            } else {
-                echo "<rect id='lounge' x='460' y='100' width='240' height='400' style='fill:rgb(255,255,255);stroke:#111111;stroke-width:5;opacity:1' />";
-            }
-            ?>
+            <rect id='lounge' x='460' y='100' width='240' height='400' style='fill:rgb(255,255,255);stroke:#111111;stroke-width:5;opacity:1' />
 
             <!-- Dining room -->
             <rect x='100' y='280' width='190' height='220' style='fill:rgb(255,255,255);stroke:#111111;stroke-width:5;opacity:1' />
 
             <!-- Hall -->
-            <?php
-            if ($hall == 0) {
-                echo "<rect id='hall' x='290' y='280' width='170' height='220' style='fill:rgb(0,255,0);stroke:#111111;stroke-width:5;opacity:1' />";
-            } else {
-                echo "<rect id='hall' x='290' y='280' width='170' height='220' style='fill:rgb(255,255,255);stroke:#111111;stroke-width:5;opacity:1' />";
-            }
-            ?>
+            <rect id='hall' x='290' y='280' width='170' height='220' style='fill:rgb(255,255,255);stroke:#111111;stroke-width:5;opacity:1' />
 
             <!-- WC -->
             <rect x='290' y='280' width='57' height='110' style='fill:rgb(255,255,255);stroke:#111111;stroke-width:5;opacity:1' />
@@ -82,13 +43,7 @@
             <rect x='410' y='400' width='49' height='15' style='fill:rgb(255,255,255);stroke:#111111;stroke-width:2;opacity:1' />
 
             <!-- Landing -->
-            <?php
-            if ($landing == 0) {
-                echo "<rect id='landing' x='290' y='530' width='170' height='60' style='fill:rgb(0,255,0);stroke:#111111;stroke-width:5;opacity:1' />";
-            } else {
-                echo "<rect id='landing' x='290' y='530' width='170' height='60' style='fill:rgb(255,255,255);stroke:#111111;stroke-width:5;opacity:1' />";
-            }
-            ?>
+            <rect id='landing' x='290' y='530' width='170' height='60' style='fill:rgb(255,255,255);stroke:#111111;stroke-width:5;opacity:1' />
 
             <!-- Doors -->
             <!-- Front door -->
@@ -124,7 +79,7 @@
             # Add some text labels...
             <!-- text x='195' y='100' font-family='Verdana' fill='black' transform='rotate(90 238,180)' -->
             <text x='305' y='325' font-family='Verdana' fill='black'>WC</text>
-            <text x='275' y='80' font-family='Verdana' font-size='26' fill='black'>6 Althorpe Close</text>
+            <text x='275' y='80' font-family='Verdana' font-size='26' fill='black'>Brownton Abbey</text>
             <text x='355' y='450' font-family='Verdana' fill='black'>Hall</text>
             <text x='550' y='300' font-family='Verdana' fill='black'>Lounge</text>
             <text x='310' y='200' font-family='Verdana' fill='black'>Kitchen</text>
